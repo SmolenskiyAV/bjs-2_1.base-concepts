@@ -29,18 +29,15 @@ function calculateTotalMortgage(percent, contribution, amount, date) {
 
   // ********* Task2 *************** 
   if (((Number.isNaN(percentNumb) === true) || (String(parseInt(percent, 10)) !== String(percent))) || (percent <= 0))  { // обработка ошибки ввода, с проверкой на десятичное значение
-    alert( `Параметр процентной ставки содержит неправильное значение ${percent} !` );
-    return;
+    return( `Параметр процентной ставки содержит неправильное значение ${percent} !` );
    };
    
    if (((Number.isNaN(amountNumb) === true) || (String(parseInt(amount, 10)) !== String(amount))) || (amount <= 0))  { // обработка ошибки ввода, с проверкой на десятичное значение
-    alert( `Параметр первоначального взноса содержит неправильное значение ${amount} !` );
-    return;
+    return( `Параметр первоначального взноса содержит неправильное значение ${amount} !` );
    };
 
-   if (((Number.isNaN(contributionNumb) === true) || (String(parseInt(contribution, 10)) !== String(contribution))) || (contributionNumb >= amountNumb))  { // обработка ошибки ввода, с проверкой на десятичное значение
-    alert( `Параметр первоначального взноса содержит неправильное значение ${contribution} !` );
-    return;
+   if (((Number.isNaN(contributionNumb) === true) || (String(parseInt(contribution, 10)) !== String(contribution))) || (contributionNumb > amountNumb))  { // обработка ошибки ввода, с проверкой на десятичное значение
+    return( `Параметр первоначального взноса содержит неправильное значение ${contribution} !` );
    };
 
   let creditSum = amountNumb - contributionNumb; // тело кредита
@@ -51,14 +48,12 @@ function calculateTotalMortgage(percent, contribution, amount, date) {
   let payMonths = fullMonthsInputedDate - fullMonthsNowDate;                                  // количество полных месяцев на выплату кредита
 
   if (payMonths === 0) { // проверка введённой пользователем даты. Текущий месяц!
-    alert( 'Указанная дата окончания выплат по кредиту не может быть определена в текущем месяце!' );
-    return;
+    return( 'Указанная дата окончания выплат по кредиту не может быть определена в текущем месяце!' );
   };
   if (payMonths < 0) { // проверка введённой пользователем даты. Дата окончания в прошлом!
-    alert( 'Указанная дата окончания выплат по кредиту не может быть определена в прошлом!' );
-    return;
+    return( 'Указанная дата окончания выплат по кредиту не может быть определена в прошлом!' );
   };
-  let p = percentNumb / 1200; // доля от процентной ставки
+  let p = (percentNumb / 12) / 100; // доля от процентной ставки
   let monthlyPayment = creditSum * (p + p / (Math.pow((1 + p), payMonths) - 1)); // ежемесячный платёж
   let totalAmountAccurate = monthlyPayment * payMonths; // общая сумма, которую придётся заплатить
   totalAmount = parseFloat(totalAmountAccurate.toFixed(2)); // "обрезка" результирующей суммы до копеек (двух знаков после запятой без округления) и преобразование в число
