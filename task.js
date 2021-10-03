@@ -56,7 +56,7 @@ function calculateTotalMortgage(percent, contribution, amount, date) {
   let p = (percentNumb / 12) / 100; // доля от процентной ставки
   let monthlyPayment = creditSum * (p + p / (Math.pow((1 + p), payMonths) - 1)); // ежемесячный платёж
   let totalAmountAccurate = monthlyPayment * payMonths; // общая сумма, которую придётся заплатить
-  totalAmount = parseFloat(totalAmountAccurate.toFixed(2)); // "обрезка" результирующей суммы до копеек (двух знаков после запятой без округления) и преобразование в число
+  totalAmount = Number(totalAmountAccurate.toFixed(2)); // "обрезка" результирующей суммы до копеек (двух знаков после запятой без округления) и преобразование в число
 
   console.log('Общая сумма, которую придётся заплатить: ', totalAmount); // вывод результата в консоль
 
